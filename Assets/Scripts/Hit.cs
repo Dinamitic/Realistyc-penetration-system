@@ -7,7 +7,7 @@ public class Hit : MonoBehaviour
     public GameObject Text;//Текст "Есть пробитие"
     public GameObject Pinetartion;
     [Tooltip("Значение пробития снаряда")] public float PinetrationValue;
-
+    public AudioSource audio;
     private float ContactAngle;//Угол контакта с бронёй
     private Transform Armor;//Лист брони,с который столкнулся снаряд
     private Manager manager;
@@ -76,6 +76,7 @@ public class Hit : MonoBehaviour
     }
     IEnumerator TimerDestroy()
     {
+        audio.Play();
         Text.SetActive(true);//Включается текст "есть пробитие"
         manager = Armor.parent.parent.GetComponent<Manager>();
         yield return new WaitForSeconds(0.3f);
@@ -83,6 +84,7 @@ public class Hit : MonoBehaviour
         Time.timeScale = 0.3f;
         manager.OnEffectBreaking();
         Transform System = Instantiate(Pinetartion,transform.position,Quaternion.identity).transform;
+        Camera.main.GetComponent<DrawSplinter>().penetrationSystem = System.GetComponent<PenetrationSystem>();
         System.GetComponent<PenetrationSystem>().manager = manager;
         Destroy(gameObject);
     }

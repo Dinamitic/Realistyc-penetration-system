@@ -25,7 +25,7 @@ public class HealthModule : MonoBehaviour
         }
         else
         {
-            GetComponent<MeshRenderer>().material.color = new Color32(145, System.Convert.ToByte(255 * Normalize(Health, HealthMax)), 0, 0);
+            GetComponent<MeshRenderer>().material.color = new Color32(145, System.Convert.ToByte(255  * Normalize(Health, HealthMax)), 0, 0);
         }
     }
 }
